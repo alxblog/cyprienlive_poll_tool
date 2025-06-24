@@ -1,0 +1,10 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3000" # adapte ce port à celui utilisé dans ton Express.js
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
