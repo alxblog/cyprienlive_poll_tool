@@ -6,6 +6,7 @@ import morgan from "morgan";
 const BUILD_PATH = "./build/server/index.js";
 const DEVELOPMENT = process.env.NODE_ENV === "development";
 const PORT = Number.parseInt(process.env.PORT || "3000");
+console.log("App url from server.js:", process.env.APP_URL);
 
 const app = express();
 
