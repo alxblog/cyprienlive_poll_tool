@@ -94,7 +94,7 @@ export default function MyForm() {
             name="title"
             render={({ field }) => (
               <FormItem className="flex-1 w-full">
-                <FormLabel>Poll Title</FormLabel>
+                <FormLabel className="text-[#a5b6a0] text-sm font-normal leading-normal">Poll Title</FormLabel>
                 <FormControl>
                   <Input
                     placeholder=""
@@ -112,7 +112,7 @@ export default function MyForm() {
             name="duration"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Duration</FormLabel>
+                <FormLabel className="text-[#a5b6a0] text-sm font-normal leading-normal">Duration</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={String(field.value)}>
                   <FormControl>
                     <SelectTrigger>
@@ -135,7 +135,7 @@ export default function MyForm() {
             name="choice1"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Choice 1</FormLabel>
+                <FormLabel className="text-[#a5b6a0] text-sm font-normal leading-normal">Choice 1</FormLabel>
                 <FormControl>
                   <Input
                     placeholder=""
@@ -154,7 +154,7 @@ export default function MyForm() {
             name="choice2"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Choice 2</FormLabel>
+                <FormLabel className="text-[#a5b6a0] text-sm font-normal leading-normal">Choice 2</FormLabel>
                 <FormControl>
                   <Input
                     placeholder=""
@@ -173,7 +173,7 @@ export default function MyForm() {
             name="choice3"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Choice 3</FormLabel>
+                <FormLabel className="text-[#a5b6a0] text-sm font-normal leading-normal">Choice 3</FormLabel>
                 <FormControl>
                   <Input
                     placeholder=""
@@ -192,7 +192,7 @@ export default function MyForm() {
             name="choice4"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Choice 4</FormLabel>
+                <FormLabel className="text-[#a5b6a0] text-sm font-normal leading-normal">Choice 4</FormLabel>
                 <FormControl>
                   <Input
                     placeholder=""
@@ -211,7 +211,7 @@ export default function MyForm() {
             name="choice5"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Choice 5</FormLabel>
+                <FormLabel className="text-[#a5b6a0] text-sm font-normal leading-normal">Choice 5</FormLabel>
                 <FormControl>
                   <Input
                     placeholder=""
