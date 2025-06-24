@@ -8,3 +8,7 @@ services:
     restart: unless-stopped
     environment:
       NODE_ENV: production
+      TWITCH_CLIENT_ID: ""
+      TWITCH_CLIENT_SECRET: ""
+      TWITCH_BROADCASTER_ID: ""
+      APP_URL: ""
