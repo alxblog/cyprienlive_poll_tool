@@ -94,7 +94,7 @@ export default function MyForm() {
             name="title"
             render={({ field }) => (
               <FormItem className="flex-1 w-full">
-                <FormLabel>title</FormLabel>
+                <FormLabel>Poll Title</FormLabel>
                 <FormControl>
                   <Input
                     placeholder=""
@@ -135,7 +135,7 @@ export default function MyForm() {
             name="choice1"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Answer 1</FormLabel>
+                <FormLabel>Choice 1</FormLabel>
                 <FormControl>
                   <Input
                     placeholder=""
@@ -154,7 +154,7 @@ export default function MyForm() {
             name="choice2"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>choice2</FormLabel>
+                <FormLabel>Choice 2</FormLabel>
                 <FormControl>
                   <Input
                     placeholder=""
@@ -173,7 +173,7 @@ export default function MyForm() {
             name="choice3"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Answer 3</FormLabel>
+                <FormLabel>Choice 3</FormLabel>
                 <FormControl>
                   <Input
                     placeholder=""
@@ -192,7 +192,7 @@ export default function MyForm() {
             name="choice4"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Answer 4</FormLabel>
+                <FormLabel>Choice 4</FormLabel>
                 <FormControl>
                   <Input
                     placeholder=""
@@ -211,7 +211,7 @@ export default function MyForm() {
             name="choice5"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Answer 5</FormLabel>
+                <FormLabel>Choice 5</FormLabel>
                 <FormControl>
                   <Input
                     placeholder=""

@@ -34,7 +34,7 @@ export default function Layout() {
 
 					</div>
 				</header>
-				<div className="px-40 flex flex-1 justify-center py-5">
+				<div className="px-6 lg:px-40 flex flex-1 justify-center py-5">
 					<Outlet />
 					<Toaster />
 				</div>
