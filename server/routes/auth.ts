@@ -20,6 +20,9 @@ const scope = [
   'user:read:moderated_channels',
 ].join(' ')
 
+console.log("App url:", process.env.APP_URL);
+
+
 const twitchClient = new TwitchClient({
   clientId: process.env.TWITCH_CLIENT_ID!,
   clientSecret: process.env.TWITCH_CLIENT_SECRET!,
