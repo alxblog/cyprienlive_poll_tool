@@ -7,8 +7,8 @@ services:
       - "3002:3000" # adapte ce port à celui utilisé dans ton Express.js
     restart: unless-stopped
     environment:
-      NODE_ENV: production
-      TWITCH_CLIENT_ID: ""
-      TWITCH_CLIENT_SECRET: ""
-      TWITCH_BROADCASTER_ID: ""
-      APP_URL: ""
+      - NODE_ENV: production
+      - TWITCH_CLIENT_ID: ""
+      - TWITCH_CLIENT_SECRET: ""
+      - TWITCH_BROADCASTER_ID: ""
+      - APP_URL: ""
