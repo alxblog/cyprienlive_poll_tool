@@ -67,11 +67,16 @@ export class TwitchClient {
 		this.authProvider.addUser({ id: tokenData.userId }, tokenData);
 
 		this.apiClient = new ApiClient({ authProvider: this.authProvider });
-    
-    const currentUser = await getTokenInfo(tokenData.accessToken, this.clientId);
+
+		const currentUser = await getTokenInfo(
+			tokenData.accessToken,
+			this.clientId
+		);
 		// const currentUser = await this.apiClient.users.getAuthenticatedUser();
 		if (!currentUser.userId) {
-			throw new Error("L'utilisateur authentifié n'a pas d'ID utilisateur valide.");
+			throw new Error(
+				"L'utilisateur authentifié n'a pas d'ID utilisateur valide."
+			);
 		}
 		this.userId = currentUser.userId;
 
@@ -107,7 +112,9 @@ export class TwitchClient {
 				throw new Error("Impossible de récupérer l'utilisateur connecté");
 
 			if (!user.userId) {
-				throw new Error("❌ Impossible de récupérer l'identifiant utilisateur (userId) depuis le token.");
+				throw new Error(
+					"❌ Impossible de récupérer l'identifiant utilisateur (userId) depuis le token."
+				);
 			}
 			this.saveToken(user.userId, tokenData);
 			console.log(
@@ -128,13 +135,12 @@ export class TwitchClient {
 			const result = await this.apiClient.moderation.getModeratedChannels(
 				this.userId
 			);
-      
-			return result.data.map(channel => ({
-        displayName: channel.displayName,
-        id: channel.id,
-        name: channel.name,
 
-      }));
+			return result.data.map((channel) => ({
+				displayName: channel.displayName,
+				id: channel.id,
+				name: channel.name,
+			}));
 		} catch (err) {
 			console.error(
 				"❌ Erreur lors de la récupération des chaînes modérées :",
@@ -146,16 +152,16 @@ export class TwitchClient {
 
 	async publishPoll(broadcasterId: string, pollData: any): Promise<void> {
 		if (!this.apiClient) throw new Error("Client non initialisé.");
-    console.log("New poll publishing...");
-    try {
-      const { id, title } = await this.apiClient.polls.createPoll(
-        broadcasterId,
-        pollData
-      );
-      console.log(`📊 Sondage ${id} publié : ${title}`);
-    } catch (error) {
-      console.log(error)
-    }
+		console.log("New poll publishing...");
+		try {
+			const { id, title } = await this.apiClient.polls.createPoll(
+				broadcasterId,
+				pollData
+			);
+			console.log(`📊 Sondage ${id} publié : ${title}`);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	/**
@@ -164,6 +170,12 @@ export class TwitchClient {
 	public saveToken(userId: string, tokenData: any): void {
 		try {
 			const dataToSave = { userId, ...tokenData };
+			// Vérifie si le dossier existe, sinon le crée
+			const dir = path.dirname(this.tokenPath);
+			if (!fs.existsSync(dir)) {
+				fs.mkdirSync(dir, { recursive: true });
+			}
+
 			fs.writeFileSync(
 				this.tokenPath,
 				JSON.stringify(dataToSave, null, 2),
