@@ -86,7 +86,7 @@ authRouter.get('/remove', (req: Request, res: Response) => {
 
 var jsonParser = bodyParser.json()
 
-authRouter.get('/auth/force-refresh', async (req: Request, res: Response) => {
+authRouter.get('/force-refresh', async (req: Request, res: Response) => {
   try {
     const tokenPath = path.resolve(__dirname, '..', 'data', 'token.json');
     const tokenData = JSON.parse(fs.readFileSync(tokenPath, 'utf-8'));
