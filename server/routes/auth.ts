@@ -86,6 +86,22 @@ authRouter.get('/remove', (req: Request, res: Response) => {
 
 var jsonParser = bodyParser.json()
 
+authRouter.get('/auth/force-refresh', async (req: Request, res: Response) => {
+  try {
+    const tokenPath = path.resolve(__dirname, '..', 'data', 'token.json');
+    const tokenData = JSON.parse(fs.readFileSync(tokenPath, 'utf-8'));
+
+    tokenData.expiresIn = 0; // Force l'expiration
+    tokenData.obtainmentTimestamp = Date.now() - 3600 * 1000; // Simule une obtention ancienne
+
+    fs.writeFileSync(tokenPath, JSON.stringify(tokenData, null, 2), 'utf-8');
+
+    res.status(200).json({ message: 'Token expiré forcé.' });
+  } catch (err) {
+    console.error('❌ Erreur dans /auth/force-refresh', err);
+    res.status(500).json({ error: 'Erreur interne' });
+  }
+});
 
 authRouter.post('/publish_poll',jsonParser, async (req: Request, res: Response): Promise<void> => {
   const  pollData  = req.body;
