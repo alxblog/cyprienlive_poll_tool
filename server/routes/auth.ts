@@ -121,8 +121,8 @@ authRouter.get('/token-info', (req: Request, res: Response) => {
     const isExpired = now > obtainTime + expiresInMs;
 
     return res.json({
-      accessToken: tokenData.accessToken,
-      refreshToken: tokenData.refreshToken,
+      // accessToken: tokenData.accessToken,
+      // refreshToken: tokenData.refreshToken,
       userId: tokenData.userId,
       expiresIn: tokenData.expiresIn,
       obtainmentTimestamp: new Date(obtainTime).toISOString(),
