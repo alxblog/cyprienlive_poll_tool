@@ -84,7 +84,7 @@ authRouter.get('/remove', (req: Request, res: Response) => {
   }
 });
 
-var jsonParser = bodyParser.json()
+
 
 authRouter.get('/force-refresh', async (req: Request, res: Response) => {
   try {
@@ -102,6 +102,41 @@ authRouter.get('/force-refresh', async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Erreur interne' });
   }
 });
+
+authRouter.get('/token-info', (req: Request, res: Response) => {
+  try {
+    const tokenPath = path.resolve(__dirname, '..', 'data', 'token.json');
+    if (!fs.existsSync(tokenPath)) {
+      res.status(404).json({ error: 'Token introuvable' });
+      return; // ✅ Ajoute ce return explicite
+    }
+
+    const tokenData = JSON.parse(fs.readFileSync(tokenPath, 'utf-8'));
+
+    const expiresInMs = tokenData.expiresIn * 1000;
+    const obtainTime = tokenData.obtainmentTimestamp;
+    const expireAt = new Date(obtainTime + expiresInMs);
+    const now = Date.now();
+
+    const isExpired = now > obtainTime + expiresInMs;
+
+    return res.json({
+      accessToken: tokenData.accessToken,
+      refreshToken: tokenData.refreshToken,
+      userId: tokenData.userId,
+      expiresIn: tokenData.expiresIn,
+      obtainmentTimestamp: new Date(obtainTime).toISOString(),
+      expireAt: expireAt.toISOString(),
+      isExpired,
+      remainingSeconds: Math.floor((obtainTime + expiresInMs - now) / 1000),
+    });
+  } catch (err) {
+    console.error('❌ Erreur dans /auth/token-info', err);
+    return res.status(500).json({ error: 'Erreur interne' });
+  }
+});
+
+var jsonParser = bodyParser.json()
 
 authRouter.post('/publish_poll',jsonParser, async (req: Request, res: Response): Promise<void> => {
   const  pollData  = req.body;
