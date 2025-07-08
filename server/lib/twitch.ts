@@ -61,6 +61,7 @@ export class TwitchClient {
 		});
 
 		this.authProvider.onRefresh(async (userId, newTokenData) => {
+			  console.log("🔁 Token rafraîchi pour", userId);
 			this.saveToken(userId, newTokenData);
 		});
 
