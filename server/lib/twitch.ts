@@ -27,6 +27,8 @@ export class TwitchClient {
 	private authProvider!: RefreshingAuthProvider;
 	private apiClient!: ApiClient;
 	private userId!: string;
+	private watchdogInterval?: NodeJS.Timeout;
+
 
 	constructor(config: TwitchClientConfig) {
 		this.clientId = config.clientId;
@@ -44,6 +46,34 @@ export class TwitchClient {
 		url.searchParams.append("scope", this.scope);
 		return url.toString();
 	}
+
+
+	/**
+ * Démarre un watchdog pour maintenir le token actif.
+ * Appelle getUserById(this.userId) toutes les X minutes.
+ */
+public startWatchdog(intervalMs: number = 1000 * 60 * 30): void {
+  if (!this.apiClient || !this.userId) {
+    console.warn("⚠️ Watchdog non démarré : client Twitch non initialisé.");
+    return;
+  }
+
+  // Nettoie si déjà en cours
+  if (this.watchdogInterval) {
+    clearInterval(this.watchdogInterval);
+  }
+
+  this.watchdogInterval = setInterval(async () => {
+    try {
+      await this.apiClient.users.getUserById(this.userId);
+      console.log("🔁 Watchdog : appel API OK → token vérifié");
+    } catch (err) {
+      console.error("❌ Watchdog : erreur lors de l’appel API", err);
+    }
+  }, intervalMs);
+
+  console.log(`🕒 Watchdog lancé (intervalle = ${intervalMs / 60000} min)`);
+}
 
 	async init(): Promise<void> {
 		if (!fs.existsSync(this.tokenPath)) {
@@ -80,6 +110,8 @@ export class TwitchClient {
 			);
 		}
 		this.userId = currentUser.userId;
+
+		this.startWatchdog(); // Lance le watchdog
 
 		console.log(
 			`✅ Connecté en tant que : ${currentUser.userName} (${currentUser.userId})`
